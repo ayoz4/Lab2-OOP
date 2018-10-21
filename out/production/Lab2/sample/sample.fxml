@@ -16,13 +16,14 @@
           <Menu mnemonicParsing="false" text="Создать...">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#openTest" text="тест" />
-                  <MenuItem mnemonicParsing="false" text="экзамен" />
+                  <MenuItem mnemonicParsing="false" onAction="#openExam" text="экзамен" />
                   <MenuItem mnemonicParsing="false" text="выпускной экзамен" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Просмотр...">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showTests" text="тесты" />
+                  <MenuItem mnemonicParsing="false" onAction="#showExams" text="экзамены" />
               </items>
             </Menu>
         </menus>
@@ -46,9 +47,33 @@
          </children>
       </Pane>
       <Label fx:id="infoWindow" layoutY="373.0" prefHeight="27.0" prefWidth="600.0" text="Статус" />
-      <Pane fx:id="showTestPane" layoutY="29.0" prefHeight="373.0" prefWidth="600.0" visible="false">
+      <Pane fx:id="showUno" layoutY="29.0" prefHeight="373.0" prefWidth="600.0" visible="false">
          <children>
             <TextArea fx:id="textInfo" layoutX="6.0" layoutY="8.0" prefHeight="337.0" prefWidth="589.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="examPane" layoutY="29.0" prefHeight="373.0" prefWidth="600.0" visible="false">
+         <children>
+            <Label layoutX="54.0" layoutY="177.0" text="Кол-во экзаменационных билетов" />
+            <Button layoutX="237.0" layoutY="292.0" mnemonicParsing="false" onAction="#createExam" prefHeight="67.0" prefWidth="127.0" text="Создать" />
+            <TextField fx:id="examTickets" layoutX="307.0" layoutY="172.0" prefHeight="27.0" prefWidth="194.0" />
+            <Label layoutX="176.0" layoutY="219.0" text="Преподаватель" />
+            <Label layoutX="205.0" layoutY="257.0" text="Аудитория" />
+            <TextField fx:id="examTeacher" layoutX="307.0" layoutY="214.0" prefHeight="27.0" prefWidth="194.0" />
+            <TextField fx:id="examAuditory" layoutX="307.0" layoutY="252.0" prefHeight="27.0" prefWidth="194.0" />
+            <Label layoutX="233.0" layoutY="14.0" prefHeight="36.0" prefWidth="180.0" text="Создание экзамена">
+               <font>
+
+
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="147.0" layoutY="139.0" text="Уровень сложности" />
+            <ComboBox fx:id="examLevel" layoutX="307.0" layoutY="134.0" prefHeight="27.0" prefWidth="194.0" />
+            <DatePicker fx:id="examDate" layoutX="307.0" layoutY="97.0" />
+            <TextField fx:id="examName" layoutX="307.0" layoutY="59.0" prefHeight="27.0" prefWidth="194.0" />
+            <Label layoutX="237.0" layoutY="102.0" prefHeight="15.0" prefWidth="41.0" text="Дата" />
+            <Label layoutX="208.0" layoutY="64.0" text="Название" />
          </children>
       </Pane>
    </children>
