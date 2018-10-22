@@ -7,8 +7,14 @@ public class GradExam extends Challenge
 {
     private int gradYear;           //Год выпуска
 
-    public GradExam(LocalDate date, String level, String name, int gradYear) {
+    public GradExam(LocalDate date, String level, String name, int gradYear)
+    {
         super(date, level, name);
         this.gradYear = gradYear;
+    }
+
+    public int getGradYear()
+    {
+        return gradYear;
     }
 }

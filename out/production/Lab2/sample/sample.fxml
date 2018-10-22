@@ -17,13 +17,14 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#openTest" text="тест" />
                   <MenuItem mnemonicParsing="false" onAction="#openExam" text="экзамен" />
-                  <MenuItem mnemonicParsing="false" text="выпускной экзамен" />
+                  <MenuItem mnemonicParsing="false" onAction="#openGrad" text="выпускной экзамен" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Просмотр...">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showTests" text="тесты" />
                   <MenuItem mnemonicParsing="false" onAction="#showExams" text="экзамены" />
+                  <MenuItem mnemonicParsing="false" onAction="#showGradExams" text="выпускные экзамены" />
               </items>
             </Menu>
         </menus>
@@ -74,6 +75,24 @@
             <TextField fx:id="examName" layoutX="307.0" layoutY="59.0" prefHeight="27.0" prefWidth="194.0" />
             <Label layoutX="237.0" layoutY="102.0" prefHeight="15.0" prefWidth="41.0" text="Дата" />
             <Label layoutX="208.0" layoutY="64.0" text="Название" />
+         </children>
+      </Pane>
+      <Pane fx:id="gradPane" layoutY="29.0" prefHeight="379.0" prefWidth="606.0" visible="false">
+         <children>
+            <Button layoutX="240.0" layoutY="278.0" mnemonicParsing="false" onAction="#createGrad" prefHeight="67.0" prefWidth="127.0" text="Создать" />
+            <TextField fx:id="gradName" layoutX="270.0" layoutY="72.0" prefHeight="27.0" prefWidth="194.0" />
+            <Label layoutX="186.0" layoutY="77.0" text="Название" />
+            <ComboBox fx:id="gradLevel" layoutX="270.0" layoutY="168.0" prefHeight="27.0" prefWidth="194.0" />
+            <Label layoutX="112.0" layoutY="181.0" text="Уровень сложности" />
+            <Label layoutX="207.0" layoutY="126.0" prefHeight="15.0" prefWidth="41.0" text="Дата" />
+            <Label layoutX="229.0" layoutY="24.0" prefHeight="36.0" prefWidth="148.0" text="Создание теста">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="gradDate" layoutX="270.0" layoutY="121.0" />
+            <TextField fx:id="gradYear" layoutX="270.0" layoutY="224.0" prefHeight="27.0" prefWidth="194.0" />
+            <Label layoutX="159.0" layoutY="229.0" text="Год выпуска" />
          </children>
       </Pane>
    </children>

@@ -24,13 +24,13 @@ public class Controller implements Initializable {
     private URL location;
 
     @FXML
-    private TextField taskNumber;
+    private TextField taskNumber, gradYear, gradName;
 
     @FXML
     private Pane testPane;
 
     @FXML
-    private ComboBox testLevel, examLevel;
+    private ComboBox testLevel, examLevel, gradLevel;
 
     @FXML
     private DatePicker testDate;
@@ -42,7 +42,7 @@ public class Controller implements Initializable {
     private TextArea textInfo;
 
     @FXML
-    private Pane showUno;
+    private Pane showUno, gradPane;
 
     @FXML
     private TextField examTickets;
@@ -54,7 +54,7 @@ public class Controller implements Initializable {
     private Pane examPane;
 
     @FXML
-    private DatePicker examDate;
+    private DatePicker examDate, gradDate;
 
     @FXML
     private TextField examName;
@@ -75,7 +75,7 @@ public class Controller implements Initializable {
     @FXML
     void openTest(ActionEvent event)
     {
-        hidePanes(false, true, true);
+        hidePanes(false, true, true, true);
         infoWindow.setText("Создание теста");
         testLevel.getItems().clear();
         testLevel.getItems().addAll("Низкий", "Средний", "Высокий");
@@ -135,7 +135,7 @@ public class Controller implements Initializable {
         {
             tests.add(new Test(testDate.getValue(), testLevel.getValue().toString(), testName.getText(), taskNumberInt));
             infoWindow.setText("Тест успешно добавлен!");
-            hidePanes(true, true, true);
+            hidePanes(true, true, true, true);
             testName.clear();
             taskNumber.clear();
             testLevel.getItems().clear();
@@ -153,7 +153,7 @@ public class Controller implements Initializable {
     }
 
     //Функция открытия слоев
-    public void hidePanes(boolean testPane, boolean showUno, boolean examPane)
+    public void hidePanes(boolean testPane, boolean showUno, boolean examPane, boolean gradPane)
     {
         if (testPane)
             this.testPane.setVisible(false);
@@ -167,6 +167,10 @@ public class Controller implements Initializable {
             this.examPane.setVisible(false);
         else
             this.examPane.setVisible(true);
+        if (gradPane)
+            this.gradPane.setVisible(false);
+        else
+            this.gradPane.setVisible(true);
     }
 
 
@@ -174,7 +178,7 @@ public class Controller implements Initializable {
     @FXML
     void showTests(ActionEvent event)
     {
-        hidePanes(true, false, true);
+        hidePanes(true, false, true, true);
         textInfo.clear();
         for (int i = 0; i < tests.size(); i++)
         {
@@ -198,7 +202,7 @@ public class Controller implements Initializable {
     @FXML
     void openExam(ActionEvent event)
     {
-        hidePanes(true, true, false);
+        hidePanes(true, true, false, true);
         infoWindow.setText("Создание экзамена");
         examLevel.getItems().clear();
         examLevel.getItems().addAll("Низкий", "Средний", "Высокий");
@@ -268,7 +272,7 @@ public class Controller implements Initializable {
         {
             exams.add(new Exam(examDate.getValue(), examLevel.getValue().toString(), examName.getText(), examTeacher.getText(), examAuditory1, examTickets1));
             infoWindow.setText("Экзамен успешно добавлен!");
-            hidePanes(true, true, true);
+            hidePanes(true, true, true, true);
             examName.clear();
             examLevel.getItems().clear();
             examDate.setValue(null);
@@ -281,7 +285,7 @@ public class Controller implements Initializable {
     @FXML
     void showExams(ActionEvent event)
     {
-        hidePanes(true, false, true);
+        hidePanes(true, false, true, true);
         textInfo.clear();
         for (int i = 0; i < exams.size(); i++)
         {
@@ -296,4 +300,96 @@ public class Controller implements Initializable {
         }
     }
 
+
+                                                ////////////////////////////////
+                                                ////////Создание экзамена///////
+                                                ////////////////////////////////
+
+    private ArrayList<GradExam> gradExams = new ArrayList<>();
+
+    @FXML
+    void openGrad(ActionEvent event)
+    {
+        hidePanes(true, true, true, false);
+        infoWindow.setText("Создание выпсукного экзамена");
+        gradLevel.getItems().clear();
+        gradLevel.getItems().addAll("Низкий", "Средний", "Высокий");
+    }
+
+    @FXML
+    void createGrad(ActionEvent event)
+    {
+        boolean error = true;
+        int gradYear1 = Integer.parseInt(gradYear.getText());
+        try
+        {
+            gradYear1 = Integer.parseInt(gradYear.getText());
+        }
+        catch (Exception e)
+        {
+            infoWindow.setText("Некорректные данные!");
+            error = false;
+        }
+        if (error)
+        {
+            if (gradName.getText().equals(""))
+            {
+                infoWindow.setText("Укажите название в. экзамена!");
+                error = false;
+            }
+        }
+        if (error)
+        {
+            if (gradDate.getValue() == null)
+            {
+                infoWindow.setText("Выберите дату проведения в. экзамена!");
+                error = false;
+            }
+        }
+        if (error)
+        {
+            if (gradLevel.getValue() == null)
+            {
+                infoWindow.setText("Укажите уровень сложности в. экзамена!");
+                error = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < gradExams.size(); i++)
+            {
+                if (gradExams.get(i).equals(gradName.getText()))
+                {
+                    infoWindow.setText("Экзамен с таким названием уже существует!");
+                    error = false;
+                }
+            }
+        }
+        if (error)
+        {
+            gradExams.add(new GradExam(gradDate.getValue(), gradLevel.getValue().toString(), gradName.getText(), gradYear1));
+            infoWindow.setText("Экзамен успешно добавлен!");
+            hidePanes(true, true, true, true);
+            gradName.clear();
+            gradLevel.getItems().clear();
+            gradDate.setValue(null);
+            gradYear.clear();
+        }
+    }
+
+    @FXML
+    void showGradExams(ActionEvent event)
+    {
+        hidePanes(true, false, true, true);
+        textInfo.clear();
+        for (int i = 0; i < gradExams.size(); i++)
+        {
+            textInfo.appendText("=========================================\n");
+            textInfo.appendText("Название в. экзамена: " + gradExams.get(i).getName() + "\n");
+            textInfo.appendText("Уровень сложности в. экзамена: " + gradExams.get(i).getLevel() + "\n");
+            textInfo.appendText("Дата проведения в. экзамена: " + gradExams.get(i).getDate() + "\n");
+            textInfo.appendText("Год выпуска: " + gradExams.get(i).getGradYear() + "\n");
+            textInfo.appendText("=========================================\n" );
+        }
+    }
 }
