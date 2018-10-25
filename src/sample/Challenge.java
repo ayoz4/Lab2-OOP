@@ -1,12 +1,14 @@
 package sample;
 import sample.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Challenge
 {
     private LocalDate date;         //Дата испытания
     private String level;           //Сложность
     private String name;            //Название
+    protected static ArrayList<Challenge> challenges = new ArrayList<>();   //Массив для хранения всех объектов
 
     public Challenge(LocalDate date, String level, String name)
     {
@@ -28,5 +30,21 @@ public abstract class Challenge
     public LocalDate getDate()
     {
         return date;
+    }
+
+    abstract protected String appear(LocalDate date, String level, String name);  ///Для генерации информации об объекте
+
+    abstract protected String appear(LocalDate date, String level, String name, String type);
+
+    public static String appearAll(String type, int i)    //Для выводв всех объектов
+    {
+        String info = "";
+            info = info + "=========================" + "\n";
+            info = info + "Название: " + challenges.get(i).name + "\n";
+            info = info + "Уровень сложности: " + challenges.get(i).level + "\n";
+            info = info + "Дата испытания: " + challenges.get(i).date + "\n";
+            info = info + "Тип испытания: " + type + "\n";
+            info = info + "=========================" + "\n";
+        return info;
     }
 }

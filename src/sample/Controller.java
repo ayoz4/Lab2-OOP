@@ -133,7 +133,10 @@ public class Controller implements Initializable {
         }
         if (error)
         {
-            tests.add(new Test(testDate.getValue(), testLevel.getValue().toString(), testName.getText(), taskNumberInt));
+            ///Запихиваем в коллекцию, которая лежит в базовом абстрактном классе
+            Test test = new Test(testDate.getValue(), testLevel.getValue().toString(), testName.getText(), taskNumberInt, "Тест");
+            Challenge.challenges.add(test);
+            ///
             infoWindow.setText("Тест успешно добавлен!");
             hidePanes(true, true, true, true);
             testName.clear();
@@ -180,14 +183,17 @@ public class Controller implements Initializable {
     {
         hidePanes(true, false, true, true);
         textInfo.clear();
-        for (int i = 0; i < tests.size(); i++)
+        String challengeType = "";
+        for (int i = 0; i < Challenge.challenges.size(); i++)
         {
-            textInfo.appendText("=========================================\n");
-            textInfo.appendText("Название теста: " + tests.get(i).getName() + "\n");
-            textInfo.appendText("Уровень сложности теста: " + tests.get(i).getLevel() + "\n");
-            textInfo.appendText("Дата проведения теста: " + tests.get(i).getDate() + "\n");
-            textInfo.appendText("Кол-во заданий в тесте: " + tests.get(i).getTaskNumber() + "\n");
-            textInfo.appendText("=========================================\n" );
+            Challenge challenge = Challenge.challenges.get(i);
+            System.out.println(challenge.getClass().toString());
+            if (challenge.getClass().toString().equals("class sample.Test"))
+            {
+                challengeType = ((Test)challenge).getExtraInfo();
+                System.out.println(challengeType);
+                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), challengeType));
+            }
         }
     }
 
@@ -270,7 +276,9 @@ public class Controller implements Initializable {
         }
         if (error)
         {
-            exams.add(new Exam(examDate.getValue(), examLevel.getValue().toString(), examName.getText(), examTeacher.getText(), examAuditory1, examTickets1));
+            //Запихиваем объект в коллекцию класса Challenge
+            Exam exam = new Exam(examDate.getValue(), examLevel.getValue().toString(), examName.getText(), examTeacher.getText(), examAuditory1, examTickets1, "Эказмен");
+            Challenge.challenges.add(exam);
             infoWindow.setText("Экзамен успешно добавлен!");
             hidePanes(true, true, true, true);
             examName.clear();
@@ -287,22 +295,21 @@ public class Controller implements Initializable {
     {
         hidePanes(true, false, true, true);
         textInfo.clear();
-        for (int i = 0; i < exams.size(); i++)
+        String challengeType = "";
+        for (int i = 0; i < Challenge.challenges.size(); i++)
         {
-            textInfo.appendText("=========================================\n");
-            textInfo.appendText("Название экзамена: " + exams.get(i).getName() + "\n");
-            textInfo.appendText("Уровень сложности теста: " + exams.get(i).getLevel() + "\n");
-            textInfo.appendText("Дата проведения теста: " + exams.get(i).getDate() + "\n");
-            textInfo.appendText("Преподаватель, принимающий экзамен : " + exams.get(i).getExaminer() + "\n");
-            textInfo.appendText("Аудитория: " + exams.get(i).getAuditory() + "\n");
-            textInfo.appendText("Кол-во билетов: " + exams.get(i).getExamTicket() + "\n");
-            textInfo.appendText("=========================================\n" );
+            Challenge challenge = Challenge.challenges.get(i);
+            if (challenge.getClass().toString().equals("class sample.Exam"))
+            {
+                challengeType = ((Exam)challenge).getExtraInfo1();
+                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), challengeType));
+            }
         }
     }
 
 
                                                 ////////////////////////////////
-                                                ////////Создание экзамена///////
+                                                //////Создание в. экзамена//////
                                                 ////////////////////////////////
 
     private ArrayList<GradExam> gradExams = new ArrayList<>();
@@ -367,7 +374,9 @@ public class Controller implements Initializable {
         }
         if (error)
         {
-            gradExams.add(new GradExam(gradDate.getValue(), gradLevel.getValue().toString(), gradName.getText(), gradYear1));
+            //Запихиваем объект в коллекцию класса Challenge
+            GradExam gradExam = new GradExam(gradDate.getValue(), gradLevel.getValue().toString(), gradName.getText(), gradYear1, "Выпускной экзамен");
+            Challenge.challenges.add(gradExam);
             infoWindow.setText("Экзамен успешно добавлен!");
             hidePanes(true, true, true, true);
             gradName.clear();
@@ -382,14 +391,43 @@ public class Controller implements Initializable {
     {
         hidePanes(true, false, true, true);
         textInfo.clear();
-        for (int i = 0; i < gradExams.size(); i++)
+        String challengeType = "";
+        for (int i = 0; i < Challenge.challenges.size(); i++)
         {
-            textInfo.appendText("=========================================\n");
-            textInfo.appendText("Название в. экзамена: " + gradExams.get(i).getName() + "\n");
-            textInfo.appendText("Уровень сложности в. экзамена: " + gradExams.get(i).getLevel() + "\n");
-            textInfo.appendText("Дата проведения в. экзамена: " + gradExams.get(i).getDate() + "\n");
-            textInfo.appendText("Год выпуска: " + gradExams.get(i).getGradYear() + "\n");
-            textInfo.appendText("=========================================\n" );
+            Challenge challenge = Challenge.challenges.get(i);
+            if (challenge.getClass().toString().equals("class sample.GradExam"))
+            {
+                challengeType = ((GradExam)challenge).getInfo();
+                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), challengeType));
+            }
+        }
+    }
+
+    @FXML
+    void showAllChallenges(ActionEvent event)
+    {
+        hidePanes(true, false, true, true);
+        textInfo.clear();
+        //textInfo.appendText(Challenge.appearAll());
+        for (int i = 0; i < Challenge.challenges.size(); i++)
+        {
+            String challengeType = "";
+            Challenge challenge = Challenge.challenges.get(i);
+            if (challenge.getClass().toString().equals("class sample.Test"))
+            {
+                challengeType = ((Test)challenge).getExtraInfo();
+                textInfo.appendText(challenge.appearAll(challengeType, i));
+            }
+            if (challenge.getClass().toString().equals("class sample.Exam"))
+            {
+                challengeType = ((Exam)challenge).getExtraInfo1();
+                textInfo.appendText(challenge.appearAll(challengeType, i));
+            }
+            if (challenge.getClass().toString().equals("class sample.GradExam"))
+            {
+                challengeType = ((GradExam)challenge).getInfo();
+                textInfo.appendText(challenge.appearAll(challengeType, i));
+            }
         }
     }
 }

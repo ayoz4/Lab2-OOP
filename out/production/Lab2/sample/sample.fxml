@@ -25,6 +25,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#showTests" text="тесты" />
                   <MenuItem mnemonicParsing="false" onAction="#showExams" text="экзамены" />
                   <MenuItem mnemonicParsing="false" onAction="#showGradExams" text="выпускные экзамены" />
+                  <MenuItem mnemonicParsing="false" onAction="#showAllChallenges" text="всех испытаний" />
               </items>
             </Menu>
         </menus>
@@ -50,6 +51,11 @@
       <Label fx:id="infoWindow" layoutY="373.0" prefHeight="27.0" prefWidth="600.0" text="Статус" />
       <Pane fx:id="showUno" layoutY="29.0" prefHeight="373.0" prefWidth="600.0" visible="false">
          <children>
+            <Label fx:id="showInfoWindow" layoutX="203.0" layoutY="128.0" prefHeight="97.0" prefWidth="194.0" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             <TextArea fx:id="textInfo" layoutX="6.0" layoutY="8.0" prefHeight="337.0" prefWidth="589.0" />
          </children>
       </Pane>
