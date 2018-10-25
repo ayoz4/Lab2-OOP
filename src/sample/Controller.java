@@ -62,7 +62,26 @@ public class Controller implements Initializable {
     @FXML
     private TextField examTeacher;
 
-
+    //Функция открытия слоев
+    public void hidePanes(boolean testPane, boolean showUno, boolean examPane, boolean gradPane)
+    {
+        if (testPane)
+            this.testPane.setVisible(false);
+        else
+            this.testPane.setVisible(true);
+        if (showUno)
+            this.showUno.setVisible(false);
+        else
+            this.showUno.setVisible(true);
+        if (examPane)
+            this.examPane.setVisible(false);
+        else
+            this.examPane.setVisible(true);
+        if (gradPane)
+            this.gradPane.setVisible(false);
+        else
+            this.gradPane.setVisible(true);
+    }
 
 
 
@@ -136,7 +155,6 @@ public class Controller implements Initializable {
             ///Запихиваем в коллекцию, которая лежит в базовом абстрактном классе
             Test test = new Test(testDate.getValue(), testLevel.getValue().toString(), testName.getText(), taskNumberInt, "Тест");
             Challenge.challenges.add(test);
-            ///
             infoWindow.setText("Тест успешно добавлен!");
             hidePanes(true, true, true, true);
             testName.clear();
@@ -155,28 +173,6 @@ public class Controller implements Initializable {
 
     }
 
-    //Функция открытия слоев
-    public void hidePanes(boolean testPane, boolean showUno, boolean examPane, boolean gradPane)
-    {
-        if (testPane)
-            this.testPane.setVisible(false);
-        else
-            this.testPane.setVisible(true);
-        if (showUno)
-            this.showUno.setVisible(false);
-        else
-            this.showUno.setVisible(true);
-        if (examPane)
-            this.examPane.setVisible(false);
-        else
-            this.examPane.setVisible(true);
-        if (gradPane)
-            this.gradPane.setVisible(false);
-        else
-            this.gradPane.setVisible(true);
-    }
-
-
     ///Показывает все тесты///
     @FXML
     void showTests(ActionEvent event)
@@ -192,7 +188,7 @@ public class Controller implements Initializable {
             {
                 challengeType = ((Test)challenge).getExtraInfo();
                 System.out.println(challengeType);
-                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), challengeType));
+                textInfo.appendText(((Test) challenge).appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), ((Test) challenge).getTaskNumber()));
             }
         }
     }
@@ -302,7 +298,7 @@ public class Controller implements Initializable {
             if (challenge.getClass().toString().equals("class sample.Exam"))
             {
                 challengeType = ((Exam)challenge).getExtraInfo1();
-                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), challengeType));
+                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), ((Exam) challenge).getExaminer(), ((Exam) challenge).getAuditory(), ((Exam) challenge).getExamTicket()));
             }
         }
     }
@@ -336,6 +332,14 @@ public class Controller implements Initializable {
         {
             infoWindow.setText("Некорректные данные!");
             error = false;
+        }
+        if (error)
+        {
+            if (gradYear1 > 2030 || gradYear1 < 2000)
+            {
+                infoWindow.setText("Слишком большой или слишком маленький год!");
+                error = false;
+            }
         }
         if (error)
         {
@@ -398,17 +402,26 @@ public class Controller implements Initializable {
             if (challenge.getClass().toString().equals("class sample.GradExam"))
             {
                 challengeType = ((GradExam)challenge).getInfo();
-                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), challengeType));
+                textInfo.appendText(challenge.appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), ((GradExam) challenge).getGradYear()));
             }
         }
     }
+
+
+
+
+                                                        /////////////////////////////////
+                                                        /////Показать всю информацию/////
+                                                        /////////////////////////////////
+
+
+
 
     @FXML
     void showAllChallenges(ActionEvent event)
     {
         hidePanes(true, false, true, true);
         textInfo.clear();
-        //textInfo.appendText(Challenge.appearAll());
         for (int i = 0; i < Challenge.challenges.size(); i++)
         {
             String challengeType = "";
@@ -425,7 +438,7 @@ public class Controller implements Initializable {
             }
             if (challenge.getClass().toString().equals("class sample.GradExam"))
             {
-                challengeType = ((GradExam)challenge).getInfo();
+                challengeType = ((GradExam) challenge).getInfo();
                 textInfo.appendText(challenge.appearAll(challengeType, i));
             }
         }

@@ -21,27 +21,24 @@ public class Test extends Challenge
     }
 
     @Override
-    public String appear(LocalDate date, String level, String name, String type)
+    public String appear(LocalDate date, String level, String name, int taskNumber)
     {
         String data = "";
         data = data + "Имя теста: " + name + "\n";
         data = data + "Уровеь сложности теста: " + level + "\n";
         data = data + "Дата теста: " + date + "\n";
-        data = data + "Тип испытания: " + type + "\n";
+        data = data + "Кол-во заданий: " + taskNumber + "\n";
         return data;
     }
 
     @Override
-    protected String appear(LocalDate date, String level, String name)
+    protected String appear(LocalDate date, String level, String name, String examiner, int auditory, int examTicket)
     {
-        String data = "";
-        data = data + "Имя теста: " + name + "\n";
-        data = data + "Уровеь сложности теста: " + level + "\n";
-        data = data + "Дата теста: " + date + "\n";
-        return data;
+        return null;
     }
 
-    public String getExtraInfo() {
+    public String getExtraInfo()
+    {
         return extraInfo;
     }
 }

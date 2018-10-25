@@ -20,7 +20,7 @@ public class GradExam extends Challenge
         return gradYear;
     }
 
-    @Override
+    /*@Override
     public String appear(LocalDate date, String level, String name)
     {
         String info = "";
@@ -37,6 +37,23 @@ public class GradExam extends Challenge
         info = info + "Уровень сложности: " + level + "\n";
         info = info + "Дата испытания: " + date + "\n";
         info = info + "Тип испытания: " + type + "\n";
+        return info;
+    }*/
+
+    @Override
+    protected String appear(LocalDate date, String level, String name, String examiner, int auditory, int examTicket)
+    {
+        return null;
+    }
+
+    @Override
+    protected String appear(LocalDate date, String level, String name, int gradYear)
+    {
+        String info = "";
+        info = info + "Название: " + name + "\n";
+        info = info + "Уровень сложности: " + level + "\n";
+        info = info + "Дата испытания: " + date + "\n";
+        info = info + "Год выпуска: " + gradYear + "\n";
         return info;
     }
 

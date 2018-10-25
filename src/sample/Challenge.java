@@ -32,9 +32,11 @@ public abstract class Challenge
         return date;
     }
 
-    abstract protected String appear(LocalDate date, String level, String name);  ///Для генерации информации об объекте
+    abstract protected String appear(LocalDate date, String level, String name, String examiner, int auditory, int examTicket);  ///Для генерации информации об экзамене
 
-    abstract protected String appear(LocalDate date, String level, String name, String type);
+    abstract protected String appear(LocalDate date, String level, String name, int taskNumber);    //Для генерации информации об тесте
+
+    //Aabstract protected String appear(LocalDate date, String level, String name, int gradYear);  //Для генерации информации об в. экзамене
 
     public static String appearAll(String type, int i)    //Для выводв всех объектов
     {
