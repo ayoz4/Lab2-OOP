@@ -136,6 +136,7 @@ public class Controller implements Initializable {
             if (testLevel.getValue() == null)
             {
                 infoWindow.setText("Укажите уровень сложности теста!");
+                error = false;
             }
         }
         else
@@ -183,11 +184,9 @@ public class Controller implements Initializable {
         for (int i = 0; i < Challenge.challenges.size(); i++)
         {
             Challenge challenge = Challenge.challenges.get(i);
-            System.out.println(challenge.getClass().toString());
             if (challenge.getClass().toString().equals("class sample.Test"))
             {
                 challengeType = ((Test)challenge).getExtraInfo();
-                System.out.println(challengeType);
                 textInfo.appendText(((Test) challenge).appear(challenge.getDate(), challenge.getLevel(), challenge.getName(), ((Test) challenge).getTaskNumber()));
             }
         }
@@ -323,7 +322,7 @@ public class Controller implements Initializable {
     void createGrad(ActionEvent event)
     {
         boolean error = true;
-        int gradYear1 = Integer.parseInt(gradYear.getText());
+        int gradYear1 = 0;
         try
         {
             gradYear1 = Integer.parseInt(gradYear.getText());

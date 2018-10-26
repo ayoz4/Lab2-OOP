@@ -6,13 +6,13 @@ import java.time.LocalDate;
 public class Test extends Challenge
 {
     private int taskNumber;             //Кол-во заданий
-    private String extraInfo;
+    private String extraInfo;           //Тип испытания
 
-    public Test(LocalDate date, String level, String name, int taskNumber, String type)
+    public Test(LocalDate date, String level, String name, int taskNumber, String extraInfo)
     {
         super(date, level, name);
         this.taskNumber = taskNumber;
-        extraInfo = type;
+        this.extraInfo = extraInfo;
     }
 
     public int getTaskNumber()
@@ -24,10 +24,12 @@ public class Test extends Challenge
     public String appear(LocalDate date, String level, String name, int taskNumber)
     {
         String data = "";
+        data = data + "=========================" + "\n";
         data = data + "Имя теста: " + name + "\n";
         data = data + "Уровеь сложности теста: " + level + "\n";
         data = data + "Дата теста: " + date + "\n";
         data = data + "Кол-во заданий: " + taskNumber + "\n";
+        data = data + "=========================" + "\n";
         return data;
     }
 

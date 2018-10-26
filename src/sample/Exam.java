@@ -7,15 +7,15 @@ public class Exam extends Challenge
     private String examiner;          //Кто принимает экзамен
     private int auditory;          //Номер аудитории
     private int examTicket;           //Кол-во экзаменационных билетов
-    private String extraInfo1;
+    private String extraInfo1;          //Тип испытания
 
-    public Exam(LocalDate date, String level, String name, String examiner, int auditory, int examTicket, String mod)
+    public Exam(LocalDate date, String level, String name, String examiner, int auditory, int examTicket, String extraInfo1)
     {
         super(date, level, name);
         this.examiner = examiner;
         this.auditory = auditory;
         this.examTicket = examTicket;
-        extraInfo1 = mod;
+        this.extraInfo1 = extraInfo1;
     }
 
     public String getExaminer()
@@ -36,12 +36,14 @@ public class Exam extends Challenge
     @Override
     public String appear(LocalDate date, String level, String name, String examiner, int auditory, int examTicket) {
         String data = "";
+        data = data + "=========================" + "\n";
         data = data + "Имя теста: " + name + "\n";
         data = data + "Уровеь сложности теста: " + level + "\n";
         data = data + "Дата теста: " + date + "\n";
         data = data + "Преподаватель: " + examiner + "\n";
         data = data + "Аудитория: " + auditory + "\n";
         data = data + "Кол-во билетов: " + examTicket + "\n";
+        data = data + "=========================" + "\n";
         return data;
     }
 
